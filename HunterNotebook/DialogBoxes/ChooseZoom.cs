@@ -20,7 +20,7 @@ namespace HunterNotebook
         public RichTextBox Target = null;
         private void ButtonOk_Click(object sender, EventArgs e)
         {
-            float val = 0;
+            float val;
 
             if (Target != null)
             {
@@ -74,7 +74,7 @@ namespace HunterNotebook
             }
         }
 
-        private void vScrollBarTick_Scroll(object sender, ScrollEventArgs e)
+        private void VScrollBarTick_Scroll(object sender, ScrollEventArgs e)
         {
             ComboBoxChooseZoom.Text = (((float)e.NewValue) / 10) .ToString();
         }

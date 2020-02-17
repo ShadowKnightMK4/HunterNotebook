@@ -2,45 +2,20 @@
 includes some bells and whistles. T.L.D.R  Look at the options and Toys section
 for what exactle is something extra.
 
-Supported formats :
-ANSI Text
-ANSI Log
-Unicode Text
-Unicode Log
-ANSI and Unicode RTF format.
+Command line Usage:
 
+HunterNotebook.exe "file"
+	this attempts to determine if the file is unicode or ansi via a built in Windows Routine and  and then loads it as a plain text file
 
-The setting for the app are stored in each user profile as HunterNotebook.xml.
-If an error occurs on loading these settings, a message is displayed and 
-settings are reverted to default.
+HunterNotebook.exe -noconfig
+	this turns off processing the logged in user's config (if any) 
 
-
-Arguments:
-
-Filename.txt	-- open this file
-
--NOCONFIG		-- disable config check
+HunterNotebook.exe -load {ANSI, RTF, UNICODE} "file"
+	load the target with the specified format
 
 
 
-Toys:
-	Shutdown Options/Save To desktop
-		If the app is closed because of shutdown the current file is saved to 
-		desktop as ShutdownSave.txt and in unicode plain text
-		
-		On sign in this is implemented as Storing a shortcut in the user's startuip 
-		folder and then deleting it on load.
-
-
-	Reload on Change:
-		If the date the file opened is changed, this offers to reload the file.
-
-
-	Level Text:
-		Set all text to the last chosen font.
-
-	Drag N Drop
-		Tweek how you want to deal with incomin text or sending text to other software
-
-		
+A good portion of the config settings are store in a config file named HunterNotebook.xml in the user's logged in profile.
+If you happen to be using the debug version stuff then a different Hunternotebookdebug.xml is used if it exists. Do note; however, that
+the debug code is programmed to delete the debug config file by default. One may chose this by setting InternalConfig.DisableDebugConfigDelete to true
 

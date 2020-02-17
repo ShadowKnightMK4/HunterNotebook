@@ -98,6 +98,8 @@ namespace HunterNotebook
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), DefaultConfigName());
         }
+
+
 #if DEBUG
         /// <summary>
         /// used in debug only. Returns the prefered debug config file location
@@ -132,11 +134,11 @@ namespace HunterNotebook
                 }
 
 #else
-            CurrentSettings = ContextSetting.LoadFromFile(getUserConfigFileLocation());
+            CurrentSettings = ContextSetting.LoadFromFile(GetUserConfigFileLocation());
 
-            if (File.Exists(getUserConfigFileLocation()))
+            if (File.Exists(GetUserConfigFileLocation()))
             {
-                CurrentSettings = ContextSetting.LoadFromFile(getUserConfigFileLocation());
+                CurrentSettings = ContextSetting.LoadFromFile(GetUserConfigFileLocation());
             }
             else
             {
@@ -184,7 +186,7 @@ namespace HunterNotebook
             }
 #if DEBUG
             var debugloc = GetUserDebugConfigFileLocation();
-            if (File.Exists(debugloc))
+            if (File.Exists(debugloc) && (InternalConfig.DisableDebugConfigDeleteOnExit == true))
             {
                 File.Delete(debugloc);
             }
@@ -208,10 +210,7 @@ namespace HunterNotebook
 
         private void UnicodeTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextUnicodePlain))
-            {
-                openme.ShowDialog();
-            }
+           
         }
 
         private void ANSITextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -228,7 +227,7 @@ namespace HunterNotebook
             ToggleMenuItem(reloadOnChangeToolStripMenuItem, ref CurrentSettings.AutoReloadOnChange);
         }
 
-        private void RevisionZipToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveZippedTrackerTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.ZippedTrackPlain))
             {
@@ -238,10 +237,7 @@ namespace HunterNotebook
 
         private void UnicodeTextToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextUnicodePlain))
-            {
-                openme.ShowDialog();
-            }
+
         }
 
         private void UnicodeRichTextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,10 +258,7 @@ namespace HunterNotebook
 
         private void AnsiTextToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextAnsiPlain))
-            {
-                openme.ShowDialog();
-            }
+
         }
 
         private void EditToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -379,8 +372,10 @@ namespace HunterNotebook
             }
             else
             {
-                FindDialog = new FancyFindDialog();
-                FindDialog.TargetWindow = mainWindowRichText;
+                FindDialog = new FancyFindDialog
+                {
+                    TargetWindow = mainWindowRichText
+                };
                 FindDialog.Show();
             }
             
@@ -544,7 +539,7 @@ namespace HunterNotebook
             mainWindowRichText.ZoomFactor *= 1.10f;
         }
 
-        private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ResetZoomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainWindowRichText.ZoomFactor = 1f;
         }
@@ -574,7 +569,7 @@ namespace HunterNotebook
             }
         }
 
-        private void showUserConfigFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowUserConfigFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var self = new Process())
             {
@@ -647,9 +642,123 @@ namespace HunterNotebook
             CurrentSettings.Opacity = Opacity;
         }
 
-        private void wordWrapToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WordWrapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToggleMenuItem(wordWrapToolStripMenuItem);
+        }
+
+        private void FileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            // don't mess with the menu if we are in the Designer.
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+                return;
+
+            // zip feature
+            OpenZippedTrackerTextToolStripMenuItem.Visible =
+            SaveZippedTrackerTextMenuItem.Visible =
+            OpenDivideBetweenRTFandZip.Visible =
+            SaveTextRTFZipDiv.Visible = (!InternalConfig.DisableZip);
+
+            // rtf feature
+            OpenRTFAnsiTextToolStripMenuItem.Visible =
+            OpenRTFUnicodeTextToolStripMenuItem.Visible =
+            SaveUnicodeRichTextMenuItem.Visible =
+            SaveAnsiRichTextMenuItem.Visible =
+            OpenDivideBetweenPlainAndRtf.Visible =
+            SaveDivideBetweenPlainAndRTF.Visible =
+            (!InternalConfig.DisableRTF);
+
+        }
+
+        private void OpenUnicodeTextMenuItem_onClick(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextUnicodePlain))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void OpenAnsiTextMenuItem_onClick(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextAnsiPlain))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void OpenRTFAnsiText_onClick(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextAnsiRTF))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void OpenRTFUnicodeText_onClick(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextUnicodeRTF))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void OpenZippedTrackerText_onClick(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.ZippedTrackPlain))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void SaveUnicodeTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextUnicodePlain))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void SaveAnsiTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextAnsiPlain))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void SaveUnicodeRichTextMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextUnicodeRTF))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void SaveAnsiRichTextMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.TextAnsiRTF))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void FeatureRequestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Sorry. Not Currently Supported Yet");
+        }
+
+        private void HelpToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+                return;
+            if (InternalConfig.DisableFeatureSuggestion)
+            {
+                featureRequestToolStripMenuItem.Visible = false;
+            }
+            else
+            {
+                SaveDivideBetweenPlainAndRTF.Visible = true;
+            }
         }
     }
 }

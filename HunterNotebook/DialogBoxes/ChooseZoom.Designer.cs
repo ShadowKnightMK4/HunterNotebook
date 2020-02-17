@@ -82,7 +82,7 @@
             this.VScrollBarTick.Name = "VScrollBarTick";
             this.VScrollBarTick.Size = new System.Drawing.Size(26, 28);
             this.VScrollBarTick.TabIndex = 3;
-            this.VScrollBarTick.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBarTick_Scroll);
+            this.VScrollBarTick.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBarTick_Scroll);
             // 
             // CheckBoxRememberZoom
             // 

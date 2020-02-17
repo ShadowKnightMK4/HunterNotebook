@@ -89,6 +89,7 @@
     <Compile Include="DialogBoxes\FormatPasteDialog.Designer.cs">
       <DependentUpon>FormatPasteDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="InternalConfig.cs" />
     <Compile Include="mainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

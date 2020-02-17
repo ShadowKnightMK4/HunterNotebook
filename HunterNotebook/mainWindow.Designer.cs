@@ -31,18 +31,25 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.openAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unicodeTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aNSITextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unicodeRichTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ansiTextToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.zipTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenAnsiTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenUnicodeTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenDivideBetweenPlainAndRtf = new System.Windows.Forms.ToolStripSeparator();
+            this.OpenRTFAnsiTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenRTFUnicodeTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenDivideBetweenRTFandZip = new System.Windows.Forms.ToolStripSeparator();
+            this.OpenZippedTrackerTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unicodeTextToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ansiTextToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.revisionZipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveUnicodePlainTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAnsiPlainTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveDivideBetweenPlainAndRTF = new System.Windows.Forms.ToolStripSeparator();
+            this.SaveUnicodeRichTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAnsiRichTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveTextRTFZipDiv = new System.Windows.Forms.ToolStripSeparator();
+            this.SaveZippedTrackerTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -122,8 +129,9 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
-            this.toolStripMenuItem1,
+            this.toolStripMenuItem4,
             this.openAsToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripMenuItem2,
@@ -133,123 +141,170 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.FileToolStripMenuItem_DropDownOpening);
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // toolStripMenuItem4
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 6);
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(267, 6);
             // 
             // openAsToolStripMenuItem
             // 
             this.openAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unicodeTextToolStripMenuItem,
-            this.aNSITextToolStripMenuItem,
-            this.unicodeRichTextToolStripMenuItem,
-            this.ansiTextToolStripMenuItem2,
-            this.zipTextToolStripMenuItem});
+            this.OpenAnsiTextToolStripMenuItem,
+            this.OpenUnicodeTextToolStripMenuItem,
+            this.OpenDivideBetweenPlainAndRtf,
+            this.OpenRTFAnsiTextToolStripMenuItem,
+            this.OpenRTFUnicodeTextToolStripMenuItem,
+            this.OpenDivideBetweenRTFandZip,
+            this.OpenZippedTrackerTextToolStripMenuItem});
             this.openAsToolStripMenuItem.Name = "openAsToolStripMenuItem";
-            this.openAsToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.openAsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.openAsToolStripMenuItem.Text = "Open As";
             // 
-            // unicodeTextToolStripMenuItem
+            // OpenAnsiTextToolStripMenuItem
             // 
-            this.unicodeTextToolStripMenuItem.Name = "unicodeTextToolStripMenuItem";
-            this.unicodeTextToolStripMenuItem.Size = new System.Drawing.Size(252, 34);
-            this.unicodeTextToolStripMenuItem.Text = "Unicode Text";
-            this.unicodeTextToolStripMenuItem.Click += new System.EventHandler(this.UnicodeTextToolStripMenuItem_Click);
+            this.OpenAnsiTextToolStripMenuItem.Name = "OpenAnsiTextToolStripMenuItem";
+            this.OpenAnsiTextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenAnsiTextToolStripMenuItem.Text = "Ansi Text";
+            this.OpenAnsiTextToolStripMenuItem.Click += new System.EventHandler(this.OpenAnsiTextMenuItem_onClick);
             // 
-            // aNSITextToolStripMenuItem
+            // OpenUnicodeTextToolStripMenuItem
             // 
-            this.aNSITextToolStripMenuItem.Name = "aNSITextToolStripMenuItem";
-            this.aNSITextToolStripMenuItem.Size = new System.Drawing.Size(252, 34);
-            this.aNSITextToolStripMenuItem.Text = "ANSI Text";
-            this.aNSITextToolStripMenuItem.Click += new System.EventHandler(this.ANSITextToolStripMenuItem_Click);
+            this.OpenUnicodeTextToolStripMenuItem.Name = "OpenUnicodeTextToolStripMenuItem";
+            this.OpenUnicodeTextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenUnicodeTextToolStripMenuItem.Text = "Unicode Text";
+            this.OpenUnicodeTextToolStripMenuItem.Click += new System.EventHandler(this.OpenUnicodeTextMenuItem_onClick);
             // 
-            // unicodeRichTextToolStripMenuItem
+            // OpenDivideBetweenPlainAndRtf
             // 
-            this.unicodeRichTextToolStripMenuItem.Name = "unicodeRichTextToolStripMenuItem";
-            this.unicodeRichTextToolStripMenuItem.Size = new System.Drawing.Size(252, 34);
-            this.unicodeRichTextToolStripMenuItem.Text = "Unicode Rich Text";
-            this.unicodeRichTextToolStripMenuItem.Click += new System.EventHandler(this.UnicodeRichTextToolStripMenuItem_Click);
+            this.OpenDivideBetweenPlainAndRtf.Name = "OpenDivideBetweenPlainAndRtf";
+            this.OpenDivideBetweenPlainAndRtf.Size = new System.Drawing.Size(267, 6);
             // 
-            // ansiTextToolStripMenuItem2
+            // OpenRTFAnsiTextToolStripMenuItem
             // 
-            this.ansiTextToolStripMenuItem2.Name = "ansiTextToolStripMenuItem2";
-            this.ansiTextToolStripMenuItem2.Size = new System.Drawing.Size(252, 34);
-            this.ansiTextToolStripMenuItem2.Text = "Ansi RichText";
+            this.OpenRTFAnsiTextToolStripMenuItem.Name = "OpenRTFAnsiTextToolStripMenuItem";
+            this.OpenRTFAnsiTextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenRTFAnsiTextToolStripMenuItem.Text = "RTF Ansi Text";
+            this.OpenRTFAnsiTextToolStripMenuItem.Click += new System.EventHandler(this.OpenRTFAnsiText_onClick);
             // 
-            // zipTextToolStripMenuItem
+            // OpenRTFUnicodeTextToolStripMenuItem
             // 
-            this.zipTextToolStripMenuItem.Name = "zipTextToolStripMenuItem";
-            this.zipTextToolStripMenuItem.Size = new System.Drawing.Size(252, 34);
-            this.zipTextToolStripMenuItem.Text = "Zip Text";
-            this.zipTextToolStripMenuItem.Click += new System.EventHandler(this.ZipTextToolStripMenuItem_Click);
+            this.OpenRTFUnicodeTextToolStripMenuItem.Name = "OpenRTFUnicodeTextToolStripMenuItem";
+            this.OpenRTFUnicodeTextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenRTFUnicodeTextToolStripMenuItem.Text = "Rtf Unicode Text";
+            this.OpenRTFUnicodeTextToolStripMenuItem.Click += new System.EventHandler(this.OpenRTFUnicodeText_onClick);
+            // 
+            // OpenDivideBetweenRTFandZip
+            // 
+            this.OpenDivideBetweenRTFandZip.Name = "OpenDivideBetweenRTFandZip";
+            this.OpenDivideBetweenRTFandZip.Size = new System.Drawing.Size(267, 6);
+            // 
+            // OpenZippedTrackerTextToolStripMenuItem
+            // 
+            this.OpenZippedTrackerTextToolStripMenuItem.Name = "OpenZippedTrackerTextToolStripMenuItem";
+            this.OpenZippedTrackerTextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.OpenZippedTrackerTextToolStripMenuItem.Text = "Zipped Tracker Text";
+            this.OpenZippedTrackerTextToolStripMenuItem.Click += new System.EventHandler(this.OpenZippedTrackerText_onClick);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(267, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unicodeTextToolStripMenuItem1,
-            this.ansiTextToolStripMenuItem1,
-            this.revisionZipToolStripMenuItem});
+            this.SaveUnicodePlainTextMenuItem,
+            this.SaveAnsiPlainTextMenuItem,
+            this.SaveDivideBetweenPlainAndRTF,
+            this.SaveUnicodeRichTextMenuItem,
+            this.SaveAnsiRichTextMenuItem,
+            this.SaveTextRTFZipDiv,
+            this.SaveZippedTrackerTextMenuItem});
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.saveAsToolStripMenuItem.Text = "Save As";
             // 
-            // unicodeTextToolStripMenuItem1
+            // SaveUnicodePlainTextMenuItem
             // 
-            this.unicodeTextToolStripMenuItem1.Name = "unicodeTextToolStripMenuItem1";
-            this.unicodeTextToolStripMenuItem1.Size = new System.Drawing.Size(214, 34);
-            this.unicodeTextToolStripMenuItem1.Text = "Unicode Text";
-            this.unicodeTextToolStripMenuItem1.Click += new System.EventHandler(this.UnicodeTextToolStripMenuItem1_Click);
+            this.SaveUnicodePlainTextMenuItem.Name = "SaveUnicodePlainTextMenuItem";
+            this.SaveUnicodePlainTextMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.SaveUnicodePlainTextMenuItem.Text = "Unicode Text";
+            this.SaveUnicodePlainTextMenuItem.Click += new System.EventHandler(this.SaveUnicodeTextToolStripMenuItem1_Click);
             // 
-            // ansiTextToolStripMenuItem1
+            // SaveAnsiPlainTextMenuItem
             // 
-            this.ansiTextToolStripMenuItem1.Name = "ansiTextToolStripMenuItem1";
-            this.ansiTextToolStripMenuItem1.Size = new System.Drawing.Size(214, 34);
-            this.ansiTextToolStripMenuItem1.Text = "Ansi Text";
-            this.ansiTextToolStripMenuItem1.Click += new System.EventHandler(this.AnsiTextToolStripMenuItem1_Click);
+            this.SaveAnsiPlainTextMenuItem.Name = "SaveAnsiPlainTextMenuItem";
+            this.SaveAnsiPlainTextMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.SaveAnsiPlainTextMenuItem.Text = "Ansi Text";
+            this.SaveAnsiPlainTextMenuItem.Click += new System.EventHandler(this.SaveAnsiTextToolStripMenuItem_Click);
             // 
-            // revisionZipToolStripMenuItem
+            // SaveDivideBetweenPlainAndRTF
             // 
-            this.revisionZipToolStripMenuItem.Name = "revisionZipToolStripMenuItem";
-            this.revisionZipToolStripMenuItem.Size = new System.Drawing.Size(214, 34);
-            this.revisionZipToolStripMenuItem.Text = "Revision Zip";
-            this.revisionZipToolStripMenuItem.Click += new System.EventHandler(this.RevisionZipToolStripMenuItem_Click);
+            this.SaveDivideBetweenPlainAndRTF.Name = "SaveDivideBetweenPlainAndRTF";
+            this.SaveDivideBetweenPlainAndRTF.Size = new System.Drawing.Size(267, 6);
+            // 
+            // SaveUnicodeRichTextMenuItem
+            // 
+            this.SaveUnicodeRichTextMenuItem.Name = "SaveUnicodeRichTextMenuItem";
+            this.SaveUnicodeRichTextMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.SaveUnicodeRichTextMenuItem.Text = "Unicode Rich Text";
+            this.SaveUnicodeRichTextMenuItem.Click += new System.EventHandler(this.SaveUnicodeRichTextMenuItem_Click);
+            // 
+            // SaveAnsiRichTextMenuItem
+            // 
+            this.SaveAnsiRichTextMenuItem.Name = "SaveAnsiRichTextMenuItem";
+            this.SaveAnsiRichTextMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.SaveAnsiRichTextMenuItem.Text = "Ansi Rich Text";
+            this.SaveAnsiRichTextMenuItem.Click += new System.EventHandler(this.SaveAnsiRichTextMenuItem_Click);
+            // 
+            // SaveTextRTFZipDiv
+            // 
+            this.SaveTextRTFZipDiv.Name = "SaveTextRTFZipDiv";
+            this.SaveTextRTFZipDiv.Size = new System.Drawing.Size(267, 6);
+            // 
+            // SaveZippedTrackerTextMenuItem
+            // 
+            this.SaveZippedTrackerTextMenuItem.Name = "SaveZippedTrackerTextMenuItem";
+            this.SaveZippedTrackerTextMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.SaveZippedTrackerTextMenuItem.Text = "Zipped Tracker Text";
+            this.SaveZippedTrackerTextMenuItem.Click += new System.EventHandler(this.SaveZippedTrackerTextToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(267, 6);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(183, 34);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem
@@ -363,7 +418,7 @@
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.fontToolStripMenuItem.Text = "Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
             // 
@@ -372,10 +427,10 @@
             this.wordWrapToolStripMenuItem.Checked = true;
             this.wordWrapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.wordWrapToolStripMenuItem.Name = "wordWrapToolStripMenuItem";
-            this.wordWrapToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.wordWrapToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.wordWrapToolStripMenuItem.Text = "Word Wrap";
             this.wordWrapToolStripMenuItem.CheckedChanged += new System.EventHandler(this.WordWrapToolStripMenuItem_CheckedChanged);
-            this.wordWrapToolStripMenuItem.Click += new System.EventHandler(this.wordWrapToolStripMenuItem_Click);
+            this.wordWrapToolStripMenuItem.Click += new System.EventHandler(this.WordWrapToolStripMenuItem_Click);
             // 
             // zoomToolStripMenuItem
             // 
@@ -386,39 +441,39 @@
             this.resetZoomToolStripMenuItem,
             this.specificZoomToolStripMenuItem});
             this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
-            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(206, 34);
             this.zoomToolStripMenuItem.Text = "Zoom";
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.ZoomInToolStripMenuItem_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.ZoomOutToolStripMenuItem_Click);
             // 
             // Bar42ToolStripMenuItem
             // 
             this.Bar42ToolStripMenuItem.Name = "Bar42ToolStripMenuItem";
-            this.Bar42ToolStripMenuItem.Size = new System.Drawing.Size(267, 6);
+            this.Bar42ToolStripMenuItem.Size = new System.Drawing.Size(224, 6);
             // 
             // resetZoomToolStripMenuItem
             // 
             this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
-            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
-            this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
+            this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.ResetZoomToolStripMenuItem_Click);
             // 
             // specificZoomToolStripMenuItem
             // 
             this.specificZoomToolStripMenuItem.Name = "specificZoomToolStripMenuItem";
-            this.specificZoomToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.specificZoomToolStripMenuItem.Size = new System.Drawing.Size(227, 34);
             this.specificZoomToolStripMenuItem.Text = "Specific Zoom";
             this.specificZoomToolStripMenuItem.Click += new System.EventHandler(this.SpecificZoomToolStripMenuItem_Click);
             // 
@@ -559,7 +614,7 @@
             this.showUserConfigFileToolStripMenuItem.Name = "showUserConfigFileToolStripMenuItem";
             this.showUserConfigFileToolStripMenuItem.Size = new System.Drawing.Size(287, 34);
             this.showUserConfigFileToolStripMenuItem.Text = "Show User Config File";
-            this.showUserConfigFileToolStripMenuItem.Click += new System.EventHandler(this.showUserConfigFileToolStripMenuItem_Click);
+            this.showUserConfigFileToolStripMenuItem.Click += new System.EventHandler(this.ShowUserConfigFileToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -570,6 +625,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.DropDownOpening += new System.EventHandler(this.HelpToolStripMenuItem_DropDownOpening);
             // 
             // showHelpToolStripMenuItem
             // 
@@ -581,8 +637,9 @@
             // featureRequestToolStripMenuItem
             // 
             this.featureRequestToolStripMenuItem.Name = "featureRequestToolStripMenuItem";
-            this.featureRequestToolStripMenuItem.Size = new System.Drawing.Size(267, 34);
+            this.featureRequestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.featureRequestToolStripMenuItem.Text = "Feature Suggestion";
+            this.featureRequestToolStripMenuItem.Click += new System.EventHandler(this.FeatureRequestToolStripMenuItem_Click);
             // 
             // aboutThisToolStripMenuItem
             // 
@@ -668,14 +725,11 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem openAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unicodeTextToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aNSITextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unicodeTextToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ansiTextToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem revisionZipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveUnicodePlainTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveAnsiPlainTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveZippedTrackerTextMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
@@ -709,9 +763,6 @@
         private System.Windows.Forms.ToolStripMenuItem showHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutThisToolStripMenuItem;
         public System.Windows.Forms.RichTextBox mainWindowRichText;
-        private System.Windows.Forms.ToolStripMenuItem unicodeRichTextToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ansiTextToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem zipTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem levelTextToolStripMenuItem;
         private System.Windows.Forms.FontDialog ChooseLevelFontDialog;
         private System.Windows.Forms.ToolStripMenuItem featureRequestToolStripMenuItem;
@@ -732,6 +783,19 @@
         private System.Windows.Forms.ToolStripMenuItem showUserConfigFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem makeTransparentToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem openAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenAnsiTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenUnicodeTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenRTFAnsiTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenRTFUnicodeTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator OpenDivideBetweenPlainAndRtf;
+        private System.Windows.Forms.ToolStripSeparator OpenDivideBetweenRTFandZip;
+        private System.Windows.Forms.ToolStripMenuItem OpenZippedTrackerTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator SaveDivideBetweenPlainAndRTF;
+        private System.Windows.Forms.ToolStripMenuItem SaveUnicodeRichTextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveAnsiRichTextMenuItem;
+        private System.Windows.Forms.ToolStripSeparator SaveTextRTFZipDiv;
     }
 }
 

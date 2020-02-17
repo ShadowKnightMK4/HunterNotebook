@@ -339,15 +339,17 @@ namespace HunterNotebook
             }
             if (Handler != null)
             {
-                var NewContext = new ContextFile();
-                NewContext.CurrentFile = filename;
+                var NewContext = new ContextFile
+                {
+                    CurrentFile = filename
+                };
                 try
                 {
                     Handler.Load(TargetWindow.mainWindowRichText, NewContext);
                 }
                 catch (IOException e)
                 {
-                    MessageBox.Show(e.Message, "Error loading file");
+                    MessageBox.Show(e.Message, "Error loading file. Message is " + e.Message);
                     NewContext = null;
                 }
 
