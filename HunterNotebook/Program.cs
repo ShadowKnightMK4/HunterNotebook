@@ -90,8 +90,8 @@ namespace HunterNotebook
                     MainForm.DisableConfigLoad = DisableConfigLoad;
                 
                     FileHandling.TargetWindow = MainForm;
-                    
-                    if (TargetFile != null)
+                    MainForm.Text = "Hunter's Notebook";
+                    if (string.IsNullOrWhiteSpace(TargetFile ) == false)
                     {
                         if (Format == SupportedFileHandleFormats.Unknown)
                         {
@@ -117,6 +117,7 @@ namespace HunterNotebook
                             MessageBox.Show("Unable to detect " + TargetFile + "'s encoding. Please Specific a format when loaded (use -load FORMAT \"Target\")");
                         }
                     }
+                    
                     Application.Run(MainForm);
                 }
             }
