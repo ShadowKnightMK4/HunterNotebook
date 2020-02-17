@@ -1,0 +1,2 @@
+﻿Greetings and thanks for trying the Hunter Notebook program.
+This is a notepad duplicate with the tools I wish notepad would have.

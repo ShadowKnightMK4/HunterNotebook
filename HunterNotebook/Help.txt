@@ -1,0 +1,46 @@
+﻿Welcome to the Hunter Notebook, a small c# powered notepad replacement that 
+includes some bells and whistles. T.L.D.R  Look at the options and Toys section
+for what exactle is something extra.
+
+Supported formats :
+ANSI Text
+ANSI Log
+Unicode Text
+Unicode Log
+ANSI and Unicode RTF format.
+
+
+The setting for the app are stored in each user profile as HunterNotebook.xml.
+If an error occurs on loading these settings, a message is displayed and 
+settings are reverted to default.
+
+
+Arguments:
+
+Filename.txt	-- open this file
+
+-NOCONFIG		-- disable config check
+
+
+
+Toys:
+	Shutdown Options/Save To desktop
+		If the app is closed because of shutdown the current file is saved to 
+		desktop as ShutdownSave.txt and in unicode plain text
+		
+		On sign in this is implemented as Storing a shortcut in the user's startuip 
+		folder and then deleting it on load.
+
+
+	Reload on Change:
+		If the date the file opened is changed, this offers to reload the file.
+
+
+	Level Text:
+		Set all text to the last chosen font.
+
+	Drag N Drop
+		Tweek how you want to deal with incomin text or sending text to other software
+
+		
+
