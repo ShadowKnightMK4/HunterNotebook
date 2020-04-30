@@ -15,7 +15,41 @@ HunterNotebook.exe -load {ANSI, RTF, UNICODE} "file"
 
 
 
-A good portion of the config settings are store in a config file named HunterNotebook.xml in the user's logged in profile.
-If you happen to be using the debug version stuff then a different Hunternotebookdebug.xml is used if it exists. Do note; however, that
-the debug code is programmed to delete the debug config file by default. One may chose this by setting InternalConfig.DisableDebugConfigDelete to true
+Debug VS Release
 
+	The debug version will throw a few exceptions the retail display display as messages. 
+The config file is debughunterconfig.xml rather than hunterconfig.xml.  It's also deleted at end of run 
+by default. One may change this via the InternalConfig flag named DisableDebugConfigDeleteOnExit. Do note that
+by default this flag only exists in debug build. It's commented out in release  build.
+
+	
+Menu Notes:
+		The menu is modified at runtime on the ToolStripMenuItem.Openeing Event via configuration and 
+	application main state. This however is displayed in design time (i.e. the visual studio editor)
+
+Config Settings:
+	The Config File is stored for each using in the roaming application data folder. This should enable the perferences
+to properate on login to a different pc (untested).  It's named hunterconfig.xml
+
+
+
+Option Menu Description:
+Font.			     	 Pick a font to use. Changes selected text's (if any) font.
+Word Wrap				 Toggle Word Wrap in the edit window.
+Zoom.				     Pick how to zoom in.  
+Hide or Show Statusbar.  Toggle Statusbar display.
+
+
+Toy Menu Descriptions:
+
+Reload on Change.  This displays a message prompt if the file's modified date is changed, assuming the file is loaded from a disk.
+Level Text.        This Set all formatting in the window to the last selected font or Times New Roman 12 if not defined.
+Always On Top.	   Place this window above other ones. Usefull to track notes
+Make Transparted.  Toggle 50% Transparancy.
+
+Right Click Menu.	Change what you want to do when you right click in the text.
+
+
+
+
+TrackedFormat

@@ -63,8 +63,9 @@ namespace HunterNotebook
             if (Clipboard.ContainsText(TextDataFormat.Html))
                 Ret.Add(TextDataFormat.Html);
 
-            if (Clipboard.ContainsText(TextDataFormat.Rtf))
-                Ret.Add(TextDataFormat.Rtf);
+            if (!InternalConfig.DisableRTF)
+                if (Clipboard.ContainsText(TextDataFormat.Rtf))
+                    Ret.Add(TextDataFormat.Rtf);
 
             if (Clipboard.ContainsText(TextDataFormat.UnicodeText))
                 Ret.Add(TextDataFormat.UnicodeText);

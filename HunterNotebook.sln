@@ -5,7 +5,17 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunterNotebook", "HunterNotebook\HunterNotebook.csproj", "{0F654C48-5F58-4BCE-80B3-1FB3EC8AA5E5}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "PrintEngine", "PrintEngine\PrintEngine.shproj", "{96D33512-043A-4347-9FD5-4BADB7D5FF9E}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Noteformat", "Noteformat\Noteformat.shproj", "{8D557C28-F272-4255-87E8-3805960AFF45}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Noteformat\Noteformat.projitems*{0f654c48-5f58-4bce-80b3-1fb3ec8aa5e5}*SharedItemsImports = 4
+		PrintEngine\PrintEngine.projitems*{0f654c48-5f58-4bce-80b3-1fb3ec8aa5e5}*SharedItemsImports = 4
+		Noteformat\Noteformat.projitems*{8d557c28-f272-4255-87e8-3805960aff45}*SharedItemsImports = 13
+		PrintEngine\PrintEngine.projitems*{96d33512-043a-4347-9fd5-4badb7d5ff9e}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

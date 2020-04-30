@@ -17,12 +17,15 @@ namespace HunterNotebook
             InitializeComponent();
         }
 
-        public RichTextBox Target = null;
+        /// <summary>
+        /// the zoom the user chose
+        /// </summary>
+        public float ZoomFactor = 1.0f;
+
         private void ButtonOk_Click(object sender, EventArgs e)
         {
             float val;
 
-            if (Target != null)
             {
                 try
                 {
@@ -36,7 +39,8 @@ namespace HunterNotebook
 
                 if (val != 0)
                 {
-                    Target.ZoomFactor = val;
+                    //                    Target.ZoomFactor = val;
+                    ZoomFactor = val;
                     DialogResult = DialogResult.OK;
                     Close();
                 }
@@ -54,29 +58,49 @@ namespace HunterNotebook
 
         private void ChooseZoom_Shown(object sender, EventArgs e)
         {
-            if (Target == null)
-            {
-#if DEBUG
-                ButtonOk.Enabled =
-                ComboBoxChooseZoom.Enabled =
-                VScrollBarTick.Enabled =
-                CheckBoxRememberZoom.Enabled = false;
-#else
-                MessageBox.Show("Warning: No Target Specified to affect zoom with", "Program Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-#endif
-            }
-            else
-            {
+  
                 ButtonOk.Enabled =
                 ComboBoxChooseZoom.Enabled =
                 VScrollBarTick.Enabled =
                 CheckBoxRememberZoom.Enabled = true;
-            }
+
         }
 
         private void VScrollBarTick_Scroll(object sender, ScrollEventArgs e)
         {
             ComboBoxChooseZoom.Text = (((float)e.NewValue) / 10) .ToString();
+        }
+
+        private void ComboBoxChooseZoom_Validating(object sender, CancelEventArgs e)
+        {
+            float text = 0;
+            try 
+            {
+                text = float.Parse(ComboBoxChooseZoom.Text);
+            }
+            catch (FormatException)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Please Specified a number and not \"" + ComboBoxChooseZoom.Text + "\"");
+            }
+            if ((text <= 0.0125) || (text >= 64))
+            {
+                e.Cancel = true;
+                MessageBox.Show("Please Specified a number between 0.0125 and 64");
+            }
+        }
+
+        private void ChooseZoom_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (ModifierKeys.HasFlag(Keys.Control))
+            if (true)
+            {
+                if (((int)(Keys.Escape) == e.KeyChar))
+                {
+                    DialogResult = DialogResult.Cancel;
+                    Close();
+                }
+            }
         }
     }
 }

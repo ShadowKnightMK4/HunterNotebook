@@ -75,6 +75,7 @@
             this.ComboBoxChooseZoom.Name = "ComboBoxChooseZoom";
             this.ComboBoxChooseZoom.Size = new System.Drawing.Size(216, 28);
             this.ComboBoxChooseZoom.TabIndex = 2;
+            this.ComboBoxChooseZoom.Validating += new System.ComponentModel.CancelEventHandler(this.ComboBoxChooseZoom_Validating);
             // 
             // VScrollBarTick
             // 
@@ -110,6 +111,7 @@
             this.Name = "ChooseZoom";
             this.Text = "Choose Zoom";
             this.Shown += new System.EventHandler(this.ChooseZoom_Shown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ChooseZoom_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

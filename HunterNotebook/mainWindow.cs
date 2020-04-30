@@ -25,16 +25,17 @@ namespace HunterNotebook
         }
 
         #region local shit
-          public  ContextFile CurrentFile = new ContextFile();
-          public ContextSetting CurrentSettings = new ContextSetting();
+        public ContextFile CurrentFile = new ContextFile();
+        public ContextSetting CurrentSettings = new ContextSetting();
 
         /// <summary>
         /// Set before first shown. turns of the config load
         /// </summary>
         public bool DisableConfigLoad = false;
+        private NotebookFormatBookBuddy BookMarks = new NotebookFormatBookBuddy();
         #endregion
 
-        
+
 
         private void MainWindow_LocationChanged(object sender, EventArgs e)
         {
@@ -51,10 +52,10 @@ namespace HunterNotebook
             saveToDesktopToolStripMenuItem.Checked = CurrentSettings.ShutdownAutoSave;
             ReloadOnSignInToolStripMenuItem.Checked = CurrentSettings.AutoLoadSignIn;
             reloadOnChangeToolStripMenuItem.Checked = CurrentSettings.AutoReloadOnChange;
-            
-            
+
+
             AllowReceiveTextToolStripMenuItem.Checked = CurrentSettings.AllowReceiveTextByDrag;
-            AllowGiveTextToolStripMenuItem.Checked = CurrentSettings.AllowGiveTextByDrag ;
+            AllowGiveTextToolStripMenuItem.Checked = CurrentSettings.AllowGiveTextByDrag;
 
             Opacity = CurrentSettings.Opacity;
             if (Opacity != 1)
@@ -66,7 +67,7 @@ namespace HunterNotebook
                 makeTransparentToolStripMenuItem.Checked = false;
             }
 
-            
+
 
 
         }
@@ -112,6 +113,8 @@ namespace HunterNotebook
 #endif
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            BookMarks.TargetWindow = mainWindowRichText;
+            BookMarks.Show();
             if (!DisableConfigLoad)
             {
 
@@ -167,7 +170,7 @@ namespace HunterNotebook
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ( (e.CloseReason == CloseReason.WindowsShutDown) )
+            if ((e.CloseReason == CloseReason.WindowsShutDown))
             {
                 if (CurrentSettings.ShutdownAutoSave)
                 {
@@ -175,7 +178,7 @@ namespace HunterNotebook
 
                     if (CurrentSettings.AutoLoadSignIn)
                     {
-                        
+
                         CurrentSettings.SaveShortcut(
                             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "DesktopSave.txt"),
                             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "DesktopSave.txt")
@@ -210,7 +213,7 @@ namespace HunterNotebook
 
         private void UnicodeTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void ANSITextToolStripMenuItem_Click(object sender, EventArgs e)
@@ -221,7 +224,7 @@ namespace HunterNotebook
             }
         }
 
-    
+
         private void ReloadOnChangeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToggleMenuItem(reloadOnChangeToolStripMenuItem, ref CurrentSettings.AutoReloadOnChange);
@@ -345,17 +348,20 @@ namespace HunterNotebook
         }
 
         private FancyFindDialog FindDialog = null;
+
+        public bool AllowRightClickMenu { get; private set; }
+
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-          
+
             /*
             using (var FindDialog = new FindDialog())
             {
                 FindDialog.TargetWindow = mainWindowRichText;
                    FindDialog.ShowDialog(this);
             }*/
-            
+
             if (FindDialog != null)
             {
                 try
@@ -378,7 +384,7 @@ namespace HunterNotebook
                 };
                 FindDialog.Show();
             }
-            
+
             FindDialog.TopMost = true;
             FindDialog.TopMost = false;
 
@@ -386,14 +392,14 @@ namespace HunterNotebook
 
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             if (ChooseLevelFontDialog.ShowDialog() == DialogResult.OK)
             {
                 mainWindowRichText.SelectionFont = ChooseLevelFontDialog.Font;
                 mainWindowRichText.SelectionColor = ChooseLevelFontDialog.Color;
                 CurrentSettings.LevelFont = mainWindowRichText.SelectionFont;
-           }
-            
+            }
+
         }
 
         private void ToysToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -406,6 +412,15 @@ namespace HunterNotebook
             {
                 levelTextToolStripMenuItem.Enabled = false;
 
+            }
+
+            if (StatusBar.Visible)
+            {
+                statusBarToolStripMenuItem.Text = "Hide Status Bar";
+            }
+            else
+            {
+                statusBarToolStripMenuItem.Text = "Show Status Bar";
             }
         }
 
@@ -441,13 +456,21 @@ namespace HunterNotebook
 
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            using (var Print = new Printmaker())
+            {
+                Print.Setup(CurrentFile, CurrentSettings, mainWindowRichText);
+                Print.ShowDialog();
+            }
         }
 
-    
 
 
-    
+        private void UpdateStatusBar()
+        {
+            ZoomToolStripLabel.Text = string.Format("Zoom {0}%", mainWindowRichText.ZoomFactor * 100);
+            LineNumToolStrip.Text = string.Format("Line {0}", mainWindowRichText.SelectionStart);
+        }
+
 
         private void SaveToDesktopToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
@@ -526,29 +549,32 @@ namespace HunterNotebook
             CurrentSettings.AllowGiveTextByDrag = AllowGiveTextToolStripMenuItem.Checked;
         }
 
-     
+
 
         private void ZoomInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainWindowRichText.ZoomFactor *= 1.10f;
-            
+            UpdateStatusBar();
+
         }
 
         private void ZoomOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainWindowRichText.ZoomFactor *= 1.10f;
+            UpdateStatusBar();
         }
 
         private void ResetZoomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainWindowRichText.ZoomFactor = 1f;
+            UpdateStatusBar();
         }
 
         private void SpecificZoomToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var ZoomDialog = new ChooseZoom())
             {
-                ZoomDialog.Target = mainWindowRichText;
+                ///                ZoomDialog.Target = mainWindowRichText;
                 if (ZoomDialog.ShowDialog() == DialogResult.OK)
                 {
 
@@ -558,6 +584,7 @@ namespace HunterNotebook
                         {
                             var zoomFactor = float.Parse(ZoomDialog.ComboBoxChooseZoom.Text);
                             CurrentSettings.PreferredZoom = zoomFactor;
+
                         }
                         catch (FormatException)
                         {
@@ -565,6 +592,8 @@ namespace HunterNotebook
                         }
 
                     }
+                    mainWindowRichText.ZoomFactor = ZoomDialog.ZoomFactor;
+                    UpdateStatusBar();
                 }
             }
         }
@@ -603,7 +632,7 @@ namespace HunterNotebook
                                 {
 
                                 }
-                                
+
                             }
                         }
                         break;
@@ -630,7 +659,7 @@ namespace HunterNotebook
 
         private void MakeTransparentToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             if (makeTransparentToolStripMenuItem.Checked)
             {
                 Opacity = 0.5f;
@@ -670,6 +699,38 @@ namespace HunterNotebook
 
         }
 
+        ContextMenu LastMenu = null;
+        private void RunTimeRightClickGenerateMenu(MouseEventArgs e)
+        {
+           
+            if (LastMenu != null)
+            {
+                LastMenu.Dispose();
+            }
+             ContextMenu instanced = new ContextMenu();
+            {
+                if (standardStuffToolStripMenuItem.Checked)
+                {
+                    // add the simple edit stuff
+                    instanced.MenuItems.Add(cutToolStripMenuItem.Text, CutToolStripMenuItem_Click) ;
+                    instanced.MenuItems.Add(copyToolStripMenuItem.Text, CopyToolStripMenuItem_Click);
+                    instanced.MenuItems.Add(pasteToolStripMenuItem.Text, PasteTextToolStripMenuItem_Click);
+                    instanced.MenuItems.Add("-");
+                }
+
+                if (enabledSearchToolStripMenuItem.Checked)
+                {
+                    instanced.MenuItems.Add(dictionarycomToolStripMenuItem.Text, dictionarycomToolStripMenuItem_Click);
+                    instanced.MenuItems.Add(thesaruscomToolStripMenuItem.Text, thesaruscomToolStripMenuItem_Click);
+                    instanced.MenuItems.Add("-");
+                    instanced.MenuItems.Add(googlecomToolStripMenuItem.Text, googlecomToolStripMenuItem_Click);
+                    instanced.MenuItems.Add(bingcomToolStripMenuItem.Text, bingcomToolStripMenuItem_Click);
+
+                }
+                instanced.Show(this,new Point(e.X, e.Y)) ;
+                LastMenu = instanced;
+            }
+        }
         private void OpenUnicodeTextMenuItem_onClick(object sender, EventArgs e)
         {
             using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.TextUnicodePlain))
@@ -758,6 +819,145 @@ namespace HunterNotebook
             else
             {
                 SaveDivideBetweenPlainAndRTF.Visible = true;
+            }
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((mainWindowRichText.Modified == true) || (CurrentFile.HasChanged == true))
+            {
+                if (CurrentFile.FileExists == false)
+                {
+                    SaveUnicodeTextToolStripMenuItem1_Click(sender, e);
+                }
+            }
+        }
+
+        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StatusBar.Visible = (StatusBar.Visible != true);
+        }
+
+        private void MainWindowRichText_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainWindowRichText_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((mainWindowRichText.Modified == true) || (CurrentFile.HasChanged == true))
+            {
+                switch (MessageBox.Show("The file has changed. Save Changes?", "Save Changed", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                {
+                    case DialogResult.Cancel:
+                        return;
+                    case DialogResult.Yes:
+#if DEBUG
+                        throw new NotImplementedException("Arthur did not make this part yet");
+#else
+                        MessageBox.Show("Sorry. This was not implemented yet.");
+                        break;
+#endif
+
+                    case DialogResult.No:
+                        break;
+                    default: throw new Exception("Someone forgot to code for exitTool Messagebox.show() doing something other than yes, no or cancel");
+
+                }
+
+            }
+            Application.Exit();
+        }
+
+        private void FileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void MainWindow_KeyPress(object sender, KeyPressEventArgs e)
+        {
+   
+
+        }
+
+        private void CompressedTextSaveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetSaveDialogForHandler(SupportedFileHandleFormats.CompressedTextFile))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void CompressedTextOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var openme = FileHandling.GetOpenDialogForHandler(SupportedFileHandleFormats.CompressedTextFile))
+            {
+                openme.ShowDialog();
+            }
+        }
+
+        private void dictionarycomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommonShellWebsite("https://www.dictionary.com/browse/{0}", mainWindowRichText.SelectedText);
+        }
+
+        private void CommonShellWebsite(string BaseCmd, string Website)
+        {
+            using (Process proc = new Process())
+            {
+                proc.StartInfo = new ProcessStartInfo();
+                proc.StartInfo.FileName = string.Format(BaseCmd, Website);
+                proc.Start();
+            }
+        }
+
+        private void thesaruscomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommonShellWebsite("https://www.thesaurus.com/browse/{0}", mainWindowRichText.SelectedText);
+     
+        }
+
+        private void bingcomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommonShellWebsite("https://www.bing.com/search?q={0}", mainWindowRichText.SelectedText);
+        }
+
+        private void googlecomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommonShellWebsite("https://www.google.com/search?q={0}", mainWindowRichText.SelectedText);
+        }
+
+        private void mainWindowRichText_MouseEnter(object sender, EventArgs e)
+        {
+             AllowRightClickMenu = true;
+        }
+
+        private void mainWindowRichText_MouseLeave(object sender, EventArgs e)
+        {
+            AllowRightClickMenu = false;
+        }
+
+        private void mainWindowRichText_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (AllowRightClickMenu)
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    {
+                        RunTimeRightClickGenerateMenu(e);
+                    }
+                }
             }
         }
     }

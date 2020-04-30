@@ -8,6 +8,7 @@ using System.IO.Compression;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Noteformat;
 
 namespace HunterNotebook
 {
@@ -45,6 +46,11 @@ namespace HunterNotebook
         /// Uncide Text with RTF tags
         /// </summary>
         TextUnicodeRTF = 3,
+
+        /// <summary>
+        /// Unicode Plain Text compressed. See Noteformat.cs
+        /// </summary>
+        CompressedTextFile = 10,
 
         ZippedTrackPlain = 90,
         ZippedTrackRTF = 99
@@ -104,6 +110,9 @@ namespace HunterNotebook
                     return new AnsiPlainText();
                 case SupportedFileHandleFormats.TextUnicodePlain:
                     return new UnicodePlainText();
+                case SupportedFileHandleFormats.CompressedTextFile:
+                    return new NoteformatLinker();
+
                 case SupportedFileHandleFormats.ZippedTrackPlain:
                     return new ZippedChangeTracker();
                 default:
@@ -154,6 +163,11 @@ namespace HunterNotebook
                     Ret.Filter = "Text Files (*.txt)|*.txt| Log File (*.log)|*.log";
                     Ret.FileOk += SaveAniPlainText_FileOK;
                     break;
+                case SupportedFileHandleFormats.CompressedTextFile:
+                    Ret.Title = "Save Compressed Text";
+                    Ret.Filter = "Compressed Text (*.tx_)|*.tx_";
+                    Ret.FileOk += SaveCompressedText_FileOK;
+                    break;
                 default:
                     Ret.Title = "Save a file";
                     throw new NotImplementedException(Enum.GetName(typeof(SupportedFileHandleFormats), format));
@@ -164,6 +178,12 @@ namespace HunterNotebook
             return Ret;
         }
 
+        private static void SaveCompressedText_FileOK(object sender, CancelEventArgs e)
+        {
+            TargetWindow.CurrentFile.Format = SupportedFileHandleFormats.CompressedTextFile;
+            InternalFileOk_Write(GetHandlerClassInstance(SupportedFileHandleFormats.CompressedTextFile), sender, e);
+        }
+
 
 
         /// <summary>
@@ -172,7 +192,9 @@ namespace HunterNotebook
         /// <param name="Handler"></param>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+#pragma warning disable IDE0060 // Remove unused parameter
         private static void InternalFileOk_Write(IFormatHandler Handler, object sender, CancelEventArgs e)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             if (Handler != null)
             {
@@ -371,7 +393,9 @@ namespace HunterNotebook
         /// <param name="Handler"></param>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+#pragma warning disable IDE0060 // Remove unused parameter
         private static  void InternalFileOk_Read(IFormatHandler Handler, object sender, CancelEventArgs e)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             if (Handler != null)
             {
@@ -485,6 +509,64 @@ namespace HunterNotebook
         }
     }
 
+
+    /// <summary>
+    /// communicate between this app and Noteformat Class implimenation
+    /// </summary>
+    class NoteformatLinker : IFormatHandler
+    {
+        public void Load(RichTextBox Contents, ContextFile context)
+        {
+            bool stringIsUnicode = false;
+            bool rtf = false;
+            using (var input = File.OpenRead(context.CurrentFile))
+            {
+                NoteDocument Data = new NoteDocument(input);
+                
+                if (Data.EncodingData.HasFlag(StringEncodingData.ANSI_STRING) ||
+                    (Data.EncodingData.HasFlag(StringEncodingData.UNICODE_STRING) == false))
+                {
+                    stringIsUnicode = false;
+                }
+                else
+                {
+                    stringIsUnicode = true;
+                }
+                    
+                if (Data.EncodingData.HasFlag(StringEncodingData.PLAINTEXT) ||
+                    (Data.EncodingData.HasFlag(StringEncodingData.RICHTEXT) == false))
+                {
+                    rtf = false;
+                }
+                else
+                {
+                    rtf = true;
+                }
+
+                if (rtf)
+                {
+                    Contents.Rtf = Data.CoreString;
+                }
+                else
+                {
+                    Contents.Text = Data.CoreString;
+                }
+            }
+        }
+
+        public void Save(System.Windows.Forms.RichTextBox Contents, ContextFile context)
+        {
+            using (var FileOut = File.OpenWrite(context.CurrentFile))
+            {
+                NoteDocument prep = new NoteDocument();
+                prep.EncodingData = StringEncodingData.PLAINTEXT | StringEncodingData.UNICODE_STRING;
+                prep.CoreString = Contents.Text;
+                prep.SaveToStream(FileOut);
+            }
+        }
+
+        
+    }
 
 
     /// <summary>

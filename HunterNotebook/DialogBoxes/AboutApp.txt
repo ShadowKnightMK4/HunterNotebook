@@ -1,2 +1,6 @@
 ﻿Greetings and thanks for trying the Hunter Notebook program.
 This is a notepad duplicate with the tools I wish notepad would have.
+
+
+Red Icon Public Domain source is 
+https://publicdomainvectors.org/en/free-clipart/Red-exercise-book-vector-drawing/11754.html

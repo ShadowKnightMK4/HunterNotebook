@@ -37,5 +37,15 @@ namespace HunterNotebook
         /// </summary>
         public static bool DisableDebugConfigDeleteOnExit = false;       
 #endif
+
+        public static new string ToString()
+        {
+            StringBuilder ret = new StringBuilder();
+            ret.AppendFormat("RTF Support Enabled: {0}\r\n", !DisableRTF);
+            ret.AppendFormat("Zip Text Support Enabled: {0}\r\n", !DisableZip);
+            ret.AppendFormat("Force One Font: {0}\r\n", DisableFontSupport);
+            ret.AppendFormat("Feature Suggestion Button Enabled: {0}\r\n", DisableFontSupport);
+            return ret.ToString();
+        }
     }
 }

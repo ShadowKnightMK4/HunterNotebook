@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>H:\Users\OneDrive\Documents\Deployed App\ShadowIndustries\Hunter%27s Notebook\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,10 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -46,6 +47,30 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>heft.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E35A67F327B0EE9F8717215A061408EB60175A5F</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>HunterNotebook_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,8 +121,22 @@
     <Compile Include="mainWindow.Designer.cs">
       <DependentUpon>mainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowRightClickMenu.cs" />
+    <Compile Include="NotebookFormatBookBuddy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotebookFormatBookBuddy.Designer.cs">
+      <DependentUpon>NotebookFormatBookBuddy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printmaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printmaker.Designer.cs">
+      <DependentUpon>Printmaker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spellcheck.cs" />
     <Compile Include="SupportedFormats.cs" />
     <EmbeddedResource Include="DialogBoxes\AboutApp.resx">
       <DependentUpon>AboutApp.cs</DependentUpon>
@@ -114,6 +153,12 @@
     <EmbeddedResource Include="mainWindow.resx">
       <DependentUpon>mainWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NotebookFormatBookBuddy.resx">
+      <DependentUpon>NotebookFormatBookBuddy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Printmaker.resx">
+      <DependentUpon>Printmaker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -123,6 +168,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="HunterNotebook_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -140,6 +187,7 @@
     <EmbeddedResource Include="DialogBoxes\AboutApp.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="heft.ico" />
     <Content Include="Help.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -165,5 +213,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <Import Project="..\PrintEngine\PrintEngine.projitems" Label="Shared" />
+  <Import Project="..\Noteformat\Noteformat.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
