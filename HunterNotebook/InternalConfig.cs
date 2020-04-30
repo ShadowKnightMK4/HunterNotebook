@@ -31,6 +31,11 @@ namespace HunterNotebook
         /// </summary>
         public static bool DisableFeatureSuggestion = true;
 
+        /// <summary>
+        /// used for the 'gold' version. That version is indended to be used by someone and not have it break.
+        /// </summary>
+        public static bool DisableInDevelopmentFeatures = false;
+
 #if DEBUG
         /// <summary>
         /// Set this to turn of the delete teh debug config on exit
@@ -45,6 +50,7 @@ namespace HunterNotebook
             ret.AppendFormat("Zip Text Support Enabled: {0}\r\n", !DisableZip);
             ret.AppendFormat("Force One Font: {0}\r\n", DisableFontSupport);
             ret.AppendFormat("Feature Suggestion Button Enabled: {0}\r\n", DisableFontSupport);
+            ret.AppendFormat("In Development Features Disabled: {0}\r\n", DisableInDevelopmentFeatures);
             return ret.ToString();
         }
     }
